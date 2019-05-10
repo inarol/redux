@@ -201,6 +201,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
 
     try {
       isDispatching = true
+      // 调用reducer，得到新state
       currentState = currentReducer(currentState, action)
     } finally {
       isDispatching = false
