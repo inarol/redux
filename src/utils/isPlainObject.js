@@ -1,4 +1,6 @@
 /**
+ * 检测是否是纯粹的对象
+ * while循环是解决objec可能来自其他
  * @param {any} obj The object to inspect.
  * @returns {boolean} True if the argument appears to be a plain object.
  */
