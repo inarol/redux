@@ -62,6 +62,11 @@ function getUnexpectedStateShapeWarningMessage(
   }
 }
 
+/** 
+ * 检测reducer的有效性
+ * 1. 设置初始状态为undefined，在输入内置的action: ActionTypes.INIT后，如果还是返回undefined则表示是一个无效reducer，抛出错误
+ * 2. 再次用action: ActionTypes.PROBE_UNKNOWN_ACTION()做校验，如果还是undefined则表示用户尝试处理了ActionTypes.INIT，这是不被允许的。
+ */
 function assertReducerShape(reducers) {
   Object.keys(reducers).forEach(key => {
     const reducer = reducers[key]
@@ -114,7 +119,9 @@ function assertReducerShape(reducers) {
  */
 export default function combineReducers(reducers) {
   const reducerKeys = Object.keys(reducers)
+  // 
   const finalReducers = {}
+  // 遍历所有的reducer key，筛选出所有有效reducer，这里也可以认为是realReducer
   for (let i = 0; i < reducerKeys.length; i++) {
     const key = reducerKeys[i]
 
